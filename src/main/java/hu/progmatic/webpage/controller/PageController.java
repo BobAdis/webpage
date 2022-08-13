@@ -57,4 +57,9 @@ public class PageController {
         return "admin";
     }
 
+    @GetMapping("/profile")
+    public String profilePage() {
+        return "profile";
+    }
+
 }
