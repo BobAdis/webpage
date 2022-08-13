@@ -31,6 +31,27 @@ public class PageController {
         return "page";
     }
 
+    // 1. /pages endpoint
+    // listázza ki az összes oldalt
+    // 1.1 endpoint létrehozása
+    // 1.2 nem kell új query
+    // (de lehet, ha nagyon szeretnénk, de a CrudRepository-ban van erre szolgáló query).
+    // 1.3 pages view létrehozása
+
+    // 2. /pages/new endpoint
+    // listázza ki az utolsó 48 órában létrehozott oldalakat
+    // -> LocalDateTimw.now.minusDays(2)
+    // 2.1 endpoint létrehozása
+    // 2.2 új query létrehozása (amilyet szeretnétek, de a generált a legkönnyebb)
+    // 2.3 nem kell új view (lehet pages view-t használni)
+
+    // 3. az eddigi endpointoknál dinamikusan jelenjen meg a menü (nehéz feladat)
+    // + title szerint rendezve
+    // - query létrehozása
+    // - le kellene kérdezni az oldalakat
+    // - model.addAttribute("pages", pages)
+    // - összes view-t meg kell változtatni a menünél
+
     @GetMapping("/admin")
     public String adminPage() {
         return "admin";
