@@ -21,7 +21,7 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin**")
                 .hasRole("ADMIN")
                 .antMatchers("/profile**")
-                .hasRole("USER")
+                .authenticated()
                 .anyRequest()
                 .permitAll()
                 .and()
