@@ -62,13 +62,16 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        final String password = "password";
+        System.out.println("Hash of password \"" + password + "\" is " + encoder().encode(password) + ".");
+
         auth.inMemoryAuthentication()
                 .withUser("user")
-                .password(encoder().encode("password"))
+                .password(encoder().encode(password))
                 .roles("USER")
                 .and()
                 .withUser("admin")
-                .password(encoder().encode("password"))
+                .password(encoder().encode(password))
                 .roles("USER", "ADMIN");
     }
 
