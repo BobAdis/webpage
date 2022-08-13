@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Webpage</title>
+</head>
+<body>
+<ul>
+    <li><a data-th-href="@{/}">Home</a></li>
+    <li><a data-th-href="@{/admin}">Admin</a></li>
+</ul>
+<h1 data-th-text="${page.title}">Teszt cím</h1>
+<p data-th-text="${page.content}">Teszt tartalom</p>
+<p>Created on <span data-th-text="${#temporals.format(page.created, 'yyyy-MM-dd HH:mm')}"></span></p>
+</body>
+</html>
