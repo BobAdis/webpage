@@ -17,8 +17,30 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // anyRequest() -> minden útvonal (endpoint)
+        // antMatchers("/admin**")
+        // * az adott szegmensre vonatkozó wildcard ("/admin/actions/*/self")
+        // ** a teljes route maradék részére illeszkedik ("/admin**")
+        // mvcMatchers
+        // regexMatchers
+
+        // permitAll() -> mindenki számára elérhetővé tesszük az adott útvonalat (endpoint)
+        // denyAll() -> senki számára nem elérhető az adott útvonal (endpoint)
+        // authenticated() -> bármelyik bejelentkezett felhasználó számára elérhető
+        // hasRole("ADMIN") -> "ADMIN" jogosultsággal rendelkező felhasználók számára elérhető
+
+        // .and().formLogin();
+        // Automatikusan generál egy login oldalt.
+
+        // Első találatot veszi figyelembe a Spring Security.
+        // Fent kell a specifikus matchereket megadni.
+        // "blacklist" -> amit nem tiltok, azt engedélyezem
+
         http.authorizeRequests()
-                .antMatchers("/admin**")
+                /* .anyRequest()
+                .denyAll() */
+                // Nem lenne értelme, mert a többi matcher soha nem futna le.
+                .antMatchers("/admin**", "/secret**")
                 .hasRole("ADMIN")
                 .antMatchers("/profile**")
                 .authenticated()
@@ -26,6 +48,16 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .formLogin();
+
+        // "whitelist" -> amit nem engedélyezek, azt tiltom
+        // login oldal használhat css-t (pl. BootStrap)
+        /* http.authorizeRequests()
+                .antMatchers("/login", "/logout", "/css/**")
+                .permitAll()
+                .anyRequest()
+                .denyAll()
+                .and()
+                .formLogin(); */
     }
 
     @Override
@@ -40,6 +72,7 @@ public class PageSecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER", "ADMIN");
     }
 
+    // "factoryval" létrehozott @Component
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
